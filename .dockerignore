@@ -1,0 +1,27 @@
+# === 密钥：绝不打进镜像（运行时通过 docker-compose env_file 注入）===
+.env
+
+# === 虚拟环境 & 缓存（几百 MB，容器内重新装）===
+.venv
+__pycache__
+*.pyc
+
+# === 本地数据（容器内用卷挂载）===
+chroma_db
+data
+*.db
+
+# === IDE / 版本控制 ===
+.idea
+.git
+.gitignore
+
+# === 文档 & 学习 demo（不进生产镜像）===
+*.md
+notebooks
+tests
+上下文_*.md
+
+# === 调试脚本 ===
+graph_state_monitor.py
+multi_turn_demo.py

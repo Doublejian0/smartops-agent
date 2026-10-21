@@ -1,0 +1,54 @@
+# ============================================
+# 智能运维故障诊断系统 - 编排部署
+# 启动: docker compose up -d
+# 停止: docker compose down
+# ============================================
+services:
+  api:
+    build: .
+    container_name: smartops-api
+    ports:
+      - "8000:8000"
+    # 从 .env 读密钥（ARK_API_KEY 等），容器内不硬编码
+    env_file:
+      - .env
+    environment:
+      - EMBEDDING_DEVICE=cpu
+      - HF_ENDPOINT=https://hf-mirror.com
+    volumes:
+      # ChromaDB 向量库持久化
+      - chroma_data:/app/chroma_db
+      # HuggingFace 模型缓存（BGE-large-zh 下载一次后重启不再下）
+      - hf_cache:/root/.cache/huggingface
+      # SQLite 诊断记录持久化
+      - sqlite_data:/app/src/storage
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  # === 可选：Gradio 前端（Web UI，给运维人员用） ===
+  # 需要时取消注释。注意它会再加载一份 BGE 模型，占额外内存。
+  # gradio:
+  #   build: .
+  #   container_name: smartops-gradio
+  #   ports:
+  #     - "7860:7860"
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - EMBEDDING_DEVICE=cpu
+  #     - HF_ENDPOINT=https://hf-mirror.com
+  #   volumes:
+  #     - chroma_data:/app/chroma_db
+  #     - hf_cache:/root/.cache/huggingface
+  #     - sqlite_data:/app/src/storage
+  #   command: ["python", "app.py"]
+  #   restart: unless-stopped
+
+volumes:
+  chroma_data:
+  hf_cache:
+  sqlite_data:

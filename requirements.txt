@@ -1,0 +1,36 @@
+# ===========================================
+# 智能运维故障诊断多Agent协同系统 - 依赖
+# ===========================================
+# ⚠️ torch 建议单独装 CUDA 版，不建议在这里固定
+#   例如：pip install torch --index-url https://download.pytorch.org/whl/cu118
+
+# --- 环境变量 ---
+python-dotenv>=1.0.0
+
+# --- LLM（主链路：DeepSeek OpenAI 兼容） ---
+langchain-anthropic>=1.0.0
+anthropic>=0.120.0
+langgraph>=1.0.0
+openai>=1.24.0
+
+# --- Embedding & Reranker (本地BGE, 经 sentence-transformers 加载) ---
+sentence-transformers>=2.5.0
+rank-bm25>=0.2.2
+jieba>=0.42
+
+# --- 向量数据库 ---
+chromadb>=1.0.0
+
+# --- 服务 ---
+fastapi>=0.100.0
+uvicorn>=0.30.0
+
+# --- UI ---
+gradio>=4.0.0
+
+# --- 工具与序列化 ---
+pydantic>=2.0.0
+pyyaml>=6.0.0
+
+# --- 兼容项（保留注释） ---
+# zhipuai>=2.1.0  # 历史方案兼容，可按需安装

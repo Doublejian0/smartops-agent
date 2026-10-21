@@ -1,0 +1,70 @@
+# 同义词表 - 术语对齐体系
+# 用途: 检索前将用户口语化表达统一替换为标准词，提升召回率
+# 版本: V2.0 / 2025-08-04
+# 用法: src.core.synonym_dict 模块加载此文件
+
+# === 功率调度 ===
+有功功率:
+  standard: "有功功率"
+  aliases: ["功率", "出力", "Power", "有功", "有功功率", "P"]
+无功功率:
+  standard: "无功功率"
+  aliases: ["无功", "VAR", "无功功率", "Q", "Reactive Power"]
+功率调度:
+  standard: "功率调度"
+  aliases: ["功率分配", "功率限值", "调度策略", "出力控制", "功率管理"]
+限电保护:
+  standard: "限电保护"
+  aliases: ["限功率", "降额", "限电", "功率限制", "限出力"]
+
+# === 储能 ===
+SOC:
+  standard: "SOC"
+  aliases: ["剩余电量", "荷电状态", "电池电量", "SOC", "soc", "SoC"]
+储能:
+  standard: "储能"
+  aliases: ["储能电池", "储能系统", "电池包", "电池簇", "电池组", "BESS"]
+BMS:
+  standard: "BMS"
+  aliases: ["电池管理系统", "BMS", "bms", "电池管理"]
+
+# === 逆变器 ===
+逆变器:
+  standard: "逆变器"
+  aliases: ["光伏逆变器", "并网逆变器", "组串式逆变器", "逆变器", "inverter"]
+IGBT:
+  standard: "IGBT"
+  aliases: ["IGBT", "igbt", "功率模块", "开关管"]
+
+# === 通信 ===
+Modbus:
+  standard: "Modbus"
+  aliases: ["485通信", "modbus tcp", "modbus rtu", "Modbus", "MODBUS", "modbus"]
+寄存器:
+  standard: "寄存器"
+  aliases: ["Modbus寄存器", "保持寄存器", "输入寄存器", "寄存器地址", "register"]
+
+# === 电网协议 ===
+IEC104:
+  standard: "IEC104"
+  aliases: ["IEC-104", "IEC 104", "104规约", "IEC104", "iec104"]
+遥测:
+  standard: "遥测"
+  aliases: ["遥测量", "遥测值", "遥测数据", "telemetry"]
+遥控:
+  standard: "遥控"
+  aliases: ["遥控命令", "遥控执行", "远程控制", "remote control"]
+
+# === 通用故障描述 ===
+异常:
+  standard: "异常"
+  aliases: ["不正常", "有问题", "不对", "偏差", "不准", "故障", "报错", "出错"]
+超时:
+  standard: "超时"
+  aliases: ["timeout", "无响应", "无返回", "不通", "断连", "断线", "掉线"]
+跳变:
+  standard: "跳变"
+  aliases: ["突变", "跳变", "陡变", "跳", "突跳"]
+过温:
+  standard: "过温"
+  aliases: ["过热", "过温", "温度过高", "超温", "高温", "over temperature"]

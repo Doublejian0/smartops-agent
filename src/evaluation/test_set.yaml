@@ -1,0 +1,259 @@
+# 标注测试集 — V2 扩充版 (50条)
+# 每条: 问题描述 / 真实归属部门 / 正确案例ID / 正确根因
+# 覆盖5个领域: 功率调度(12) / 通信(10) / 储能(10) / 电网协议(8) / 逆变器(8) / 边界(2)
+
+# === 功率调度 / 控制器部门 (12条) ===
+- description: "光伏逆变器输出功率15kW实测10kW"
+  true_dept: "控制器部门"
+  true_case_id: "d0"
+  true_root_cause: "dispatch_power限值逻辑异常"
+
+- description: "功率限值触发,调度策略下发异常"
+  true_dept: "控制器部门"
+  true_case_id: "d1"
+  true_root_cause: "调度策略干预"
+
+- description: "光伏出力不符合设定值,Modbus寄存器读值正常"
+  true_dept: "控制器部门"
+  true_case_id: "d0"
+  true_root_cause: "功率调度限值逻辑触发条件错误"
+
+- description: "有功功率调度指令15kW,实际输出只有10kW,无告警"
+  true_dept: "控制器部门"
+  true_case_id: "d0"
+  true_root_cause: "dispatch_power限值计算偏差"
+
+- description: "电网调度下发功率限值后,逆变器没响应"
+  true_dept: "控制器部门"
+  true_case_id: "d1"
+  true_root_cause: "调度指令未正确下发到逆变器"
+
+- description: "需量管理触发后,功率被限制在8kW无法恢复"
+  true_dept: "控制器部门"
+  true_case_id: "d1"
+  true_root_cause: "需量管理限值恢复条件不满足"
+
+- description: "限电保护误触发,实际电网电压正常"
+  true_dept: "控制器部门"
+  true_case_id: "d1"
+  true_root_cause: "限电保护阈值配低"
+
+- description: "多功能同时开启,功率异常波动"
+  true_dept: "控制器部门"
+  true_case_id: "d0"
+  true_root_cause: "多功能互斥逻辑冲突"
+
+- description: "充电桩占用电量后,光伏功率分配异常"
+  true_dept: "控制器部门"
+  true_case_id: "d1"
+  true_root_cause: "充电桩占用后功率重分配策略异常"
+
+- description: "调度策略频繁切换,功率输出抖动"
+  true_dept: "控制器部门"
+  true_case_id: "d1"
+  true_root_cause: "调度策略切换阈值设置不当"
+
+- description: "无功补偿未按设定值执行,实际输出偏差"
+  true_dept: "控制器部门"
+  true_case_id: "d0"
+  true_root_cause: "无功补偿控制逻辑参数错误"
+
+- description: "光伏功率小于预期,电网电压波动大"
+  true_dept: "控制器部门"
+  true_case_id: "d0"
+  true_root_cause: "电网电压波动触发限功率保护"
+
+# === 储能 / 储能部门 (10条) ===
+- description: "储能电池SOC跳变,BMS通信正常"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "SOC校准偏差"
+
+- description: "储能SOC突然从80%跳到30%,充放电正常"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "BMS SOC估算算法漂移"
+
+- description: "电池包SOC不准,实际电量与显示偏差大"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "SOC校准参数失效"
+
+- description: "储能不充电,SOC低于设定下限"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "SOC下限保护触发,充电被禁止"
+
+- description: "储能电池温度偏高,充电功率自动降低"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "电池温度保护降额"
+
+- description: "BMS通信正常但SOC值一直不变"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "SOC估算算法卡死"
+
+- description: "储能充放电循环次数异常增长"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "充放电计数逻辑异常"
+
+- description: "电池管理系统上报SOC与实际开路电压计算值不符"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "BMS SOC校准与OCV表不匹配"
+
+- description: "储能电池簇间SOC不均衡,偏差超10%"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "簇间均衡策略未生效"
+
+- description: "电池包过放保护误触发,实际电压正常"
+  true_dept: "储能部门"
+  true_case_id: "d2"
+  true_root_cause: "过放保护电压阈值偏移"
+
+# === 通信 / 通信硬件组 (10条) ===
+- description: "Modbus通信超时,寄存器无返回"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "寄存器地址/波特率问题"
+
+- description: "485通信时断时续,终端电阻已检查正常"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "485总线干扰或线缆质量"
+
+- description: "Modbus TCP读写超时,ping正常"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "Modbus TCP端口或协议栈异常"
+
+- description: "多个设备同时掉线,通信恢复后数据丢失"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "通信网关缓存溢出"
+
+- description: "Modbus寄存器写值成功但读回不一致"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "寄存器写保护或地址映射错误"
+
+- description: "通信正常但数据刷新频率明显变慢"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "轮询周期被其他设备拖慢"
+
+- description: "终端电阻已加,但485总线仍有反射干扰"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "总线拓扑或分支长度超标"
+
+- description: "Modbus CRC校验连续报错,环境无强干扰"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "收发器芯片故障"
+
+- description: "通信延迟大,波特率已调到最低"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "线路过长超出RS485规范"
+
+- description: "偶发通信超时,重启后恢复,但反复出现"
+  true_dept: "通信硬件组"
+  true_case_id: "d3"
+  true_root_cause: "通信芯片过热或电源纹波"
+
+# === 电网协议 / 电网协议组 (8条) ===
+- description: "IEC104协议不通,TCP2404端口异常"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "ASDU地址配置错误"
+
+- description: "IEC-104遥测不上报,链路状态正常"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "遥测召唤标志位未置位"
+
+- description: "104规约遥控命令执行失败,选择-返校超时"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "选择-返校流程时序问题"
+
+- description: "调度主站收不到104突发传送,总召唤正常"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "突发传送使能标志未配置"
+
+- description: "IEC104链路频繁断连重连,端口无防火墙限制"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "keep-alive间隔配置不一致"
+
+- description: "104协议遥测量值全部为0,但设备本地显示正常"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "信息体地址映射偏移"
+
+- description: "IEC104总召唤耗时超3分钟,数据量正常"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "总召唤分帧间隔配置过大"
+
+- description: "104规约对时失败,时间偏差超过允许范围"
+  true_dept: "电网协议组"
+  true_case_id: "d4"
+  true_root_cause: "时钟同步周期或精度不满足规约要求"
+
+# === 逆变器 / 逆变器硬件组 (8条) ===
+- description: "逆变器过温停机,IGBT温度超阈值"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "IGBT过温降额"
+
+- description: "逆变器频繁报IGBT过温,风扇运转正常"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "IGBT散热硅脂老化或散热风道堵塞"
+
+- description: "逆变器开机报绝缘阻抗低,天气晴朗"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "直流侧绝缘下降或检测电路异常"
+
+- description: "逆变器输出谐波超标,THD>5%"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "输出滤波器老化或开关频率异常"
+
+- description: "逆变器直流侧电压异常波动,组件无遮挡"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "MPPT算法跟踪异常或直流电容老化"
+
+- description: "逆变器报电网电压异常,但电网侧确认正常"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "逆变器电压采样电路偏差"
+
+- description: "逆变器输出功率缓慢下降,组件清洁无遮挡"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "功率器件老化导致效率下降"
+
+- description: "逆变器夜间待机功耗异常偏高"
+  true_dept: "逆变器硬件组"
+  true_case_id: "d5"
+  true_root_cause: "待机电路或辅助电源异常"
+
+# === 边界/不确定 (2条) ===
+- description: "设备异常,不清楚是控制器还是逆变器问题"
+  true_dept: "不确定"
+  true_case_id: "d0"
+  true_root_cause: "需多部门联合排查"
+
+- description: "多个系统同时出问题,功率异常加通信丢包"
+  true_dept: "不确定"
+  true_case_id: "d3"
+  true_root_cause: "可能为电源或环境干扰引发多系统连锁故障"

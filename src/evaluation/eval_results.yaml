@@ -1,0 +1,25 @@
+baseline:
+  avg_time: 5.6
+  field_completeness: 72.0
+  recall_top3: 26.0
+  route_accuracy: 96.0
+misrouted:
+- dept_ok: false
+  elapsed: 6.2
+  pred_dept: 控制器部门
+  query: Modbus寄存器写值成功但读回不一致
+  recall_ok: false
+  true_dept: 通信硬件组
+- dept_ok: false
+  elapsed: 6.5
+  pred_dept: 不确定
+  query: 终端电阻已加,但485总线仍有反射干扰
+  recall_ok: false
+  true_dept: 通信硬件组
+test_count: 50
+timestamp: '2026-08-13T23:04:34.305524'
+with_synonym:
+  avg_time: 5.8
+  field_completeness: 72.0
+  recall_top3: 24.0
+  route_accuracy: 96.0

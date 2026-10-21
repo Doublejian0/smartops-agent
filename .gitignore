@@ -1,0 +1,19 @@
+# 密钥(绝不提交)
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# 向量库持久化与日志
+chroma_db/
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# 开发过程记录（本地上下文，不上传）
+上下文_*.md
